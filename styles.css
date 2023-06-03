@@ -3,3 +3,11 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+img {
+  width: 20%;
+}
+
+.card {
+  border: solid black 1px;
+}
