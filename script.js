@@ -24,9 +24,32 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async playerId => {
   try {
+    const response = await fetch(`${APIURL}players/${playerId}`)
+    const result = await response.json()
+    console.log(result)
+    renderSinglePlayer(result)
+    return result
   } catch (err) {
     console.error(`Oh no, trouble fetching player #${playerId}!`, err)
   }
+}
+
+const renderSinglePlayer = async selectedPlayer => {
+  console.log('from the render single player', selectedPlayer)
+  const selectedObj = selectedPlayer.data.player
+  playerContainer.innerHTML = ''
+  const playerDiv = document.createElement('div')
+  playerDiv.classList.add('card')
+  playerDiv.innerHTML = `<h1>${selectedObj.name}<h1>
+      <img  src= ${selectedObj.imageUrl}>
+      <p>${selectedObj.breed}<p>
+      <p>${selectedObj.teamId}<p>
+      <button class="close-button">X</button>`
+  const closeBtn = playerDiv.querySelector('.close-button')
+  closeBtn.addEventListener('click', e => {
+    init()
+  })
+  playerContainer.appendChild(playerDiv)
 }
 
 const addNewPlayer = async playerObj => {
@@ -76,9 +99,16 @@ const renderAllPlayers = async playerList => {
       playerDiv.innerHTML = `<h1>${player.name}<h1>
       <img  src= ${player.imageUrl}>
       <p>${player.breed}<p>
-      <p>${player.teamId}<p>`
+      <p>${player.teamId}<p>
+      <button class="details-button" data-id="${player.id}">See Details</button>
+      <button class="delete-button" data-id="${player.id}">Delete</button>`
 
       playerContainer.appendChild(playerDiv)
+      const detailBtn = playerDiv.querySelector('.details-button')
+      detailBtn.addEventListener('click', async e => {
+        const selectedDog = e.target.dataset.id
+        fetchSinglePlayer(selectedDog)
+      })
     })
   } catch (err) {
     console.log('Uh oh, trouble rendering players!', err)
