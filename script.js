@@ -54,6 +54,16 @@ const renderSinglePlayer = async selectedPlayer => {
 
 const addNewPlayer = async playerObj => {
   try {
+    const response = await fetch(`${APIURL}players`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(playerObj),
+    })
+    const result = await response.json()
+    console.log(result)
+    // console.log(playerObj)
   } catch (err) {
     console.error('Oops, something went wrong with adding that player!', err)
   }
@@ -99,7 +109,7 @@ const renderAllPlayers = async playerList => {
       playerDiv.innerHTML = `<h1>${player.name}<h1>
       <img  src= ${player.imageUrl}>
       <p>${player.breed}<p>
-      <p>${player.teamId}<p>
+      <p>${player.id}<p>
       <button class="details-button" data-id="${player.id}">See Details</button>
       <button class="delete-button" data-id="${player.id}">Delete</button>`
 
@@ -121,6 +131,35 @@ const renderAllPlayers = async playerList => {
  */
 const renderNewPlayerForm = () => {
   try {
+    const formDiv = document.createElement('div')
+    newPlayerFormContainer.innerHTML = ''
+    formDiv.innerHTML = `
+    <form>
+    <label for="dogName">Dog Name</label>
+    <input type="text"  id="dogName">
+    <label for="dogBreed">Dog Breed</label>
+    <input type="text"  id="dogBreed">
+    <label for="dogImage">Dog Image</label>
+    <input type="text"  id="dogImage">
+
+
+    <button type="submit" id="submitBtn">Submit</button>
+
+    <form>`
+
+    const submitBtn = formDiv.querySelector('#submitBtn')
+
+    submitBtn.addEventListener('click', e => {
+      e.preventDefault()
+      const newDog = {
+        name: formDiv.querySelector('#dogName').value,
+        breed: formDiv.querySelector('#dogBreed').value,
+        imageUrl: formDiv.querySelector('#dogImage').value,
+      }
+      console.log(newDog)
+      addNewPlayer(newDog)
+    })
+    newPlayerFormContainer.appendChild(formDiv)
   } catch (err) {
     console.error('Uh oh, trouble rendering the new player form!', err)
   }
@@ -131,7 +170,7 @@ const init = async () => {
   //   console.log(players)
   renderAllPlayers(players)
 
-  //   renderNewPlayerForm()
+  renderNewPlayerForm()
 }
 
 init()
