@@ -63,7 +63,8 @@ const addNewPlayer = async playerObj => {
     })
     const result = await response.json()
     console.log(result)
-    // console.log(playerObj)
+
+    init()
   } catch (err) {
     console.error('Oops, something went wrong with adding that player!', err)
   }
@@ -71,6 +72,12 @@ const addNewPlayer = async playerObj => {
 
 const removePlayer = async playerId => {
   try {
+    const response = await fetch(`${APIURL}players/${playerId}`, {
+      method: 'DELETE',
+    })
+    const result = await response.json()
+    console.log(result)
+    init()
   } catch (err) {
     console.error(
       `Whoops, trouble removing player #${playerId} from the roster!`,
@@ -118,6 +125,11 @@ const renderAllPlayers = async playerList => {
       detailBtn.addEventListener('click', async e => {
         const selectedDog = e.target.dataset.id
         fetchSinglePlayer(selectedDog)
+      })
+      const deleteBtn = playerDiv.querySelector('.delete-button')
+      deleteBtn.addEventListener('click', async e => {
+        const selectedDog = e.target.dataset.id
+        removePlayer(selectedDog)
       })
     })
   } catch (err) {
