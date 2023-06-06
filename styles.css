@@ -23,6 +23,7 @@ h1 {
   font-size: 40px;
   text-align: center;
   margin-bottom: 20px;
+  text-shadow: 5px 5px 10px white;
 }
 h2 {
   font-size: 20px;
@@ -43,11 +44,11 @@ button:hover {
 }
 
 form {
-  color: black;
+  color: rgb(0, 0, 0);
 
   text-align: center;
   padding: 30px;
-  background-image: url('https://media.gettyimages.com/id/522100392/photo/fifty-yard-line.jpg?s=612x612&w=gi&k=20&c=fOz40GmOJJuCe8iWCc28Kbhh3yxq_cmYeeDzjdqhyq8=');
+  background-image: url('https://www.shutterstock.com/image-vector/american-football-field-vector-illustration-260nw-739740745.jpg');
   background-size: cover;
 }
 input:hover {
@@ -63,4 +64,8 @@ input {
 .details {
   grid-column: 2/3;
   grid-row: 1;
+}
+
+label {
+  text-shadow: 5px 5px 10px white;
 }
