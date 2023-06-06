@@ -39,12 +39,21 @@ const renderSinglePlayer = async selectedPlayer => {
   const selectedObj = selectedPlayer.data.player
   playerContainer.innerHTML = ''
   const playerDiv = document.createElement('div')
-  playerDiv.classList.add('card')
-  playerDiv.innerHTML = `<h1>${selectedObj.name}<h1>
+  playerDiv.classList.add('card', 'details')
+
+  playerDiv.innerHTML = `
+        
+      <h2>${selectedObj.name}<h2>
       <img  src= ${selectedObj.imageUrl}>
-      <p>${selectedObj.breed}<p>
-      <p>${selectedObj.teamId}<p>
-      <button class="close-button">X</button>`
+      <p>Breed: ${selectedObj.breed}<p>
+      <p>Dog ID: ${selectedObj.id}<p>
+      <p>Team ID:${selectedObj.teamId}<p>
+      <p>Cohort ID:${selectedObj.cohortId}<p>
+      <p>Status: ${selectedObj.status}<p>
+
+      <button class="close-button">Close</button>
+    
+   `
   const closeBtn = playerDiv.querySelector('.close-button')
   closeBtn.addEventListener('click', e => {
     init()
@@ -113,10 +122,10 @@ const renderAllPlayers = async playerList => {
     data.forEach(player => {
       const playerDiv = document.createElement('div')
       playerDiv.classList.add('card')
-      playerDiv.innerHTML = `<h1>${player.name}<h1>
+      playerDiv.innerHTML = `<h2>${player.name}<h2>
       <img  src= ${player.imageUrl}>
       <p>${player.breed}<p>
-      <p>${player.id}<p>
+     
       <button class="details-button" data-id="${player.id}">See Details</button>
       <button class="delete-button" data-id="${player.id}">Delete</button>`
 
@@ -147,6 +156,7 @@ const renderNewPlayerForm = () => {
     newPlayerFormContainer.innerHTML = ''
     formDiv.innerHTML = `
     <form>
+    <h1>Puppy Bowl</h1>
     <label for="dogName">Dog Name</label>
     <input type="text"  id="dogName">
     <label for="dogBreed">Dog Breed</label>
