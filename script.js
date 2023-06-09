@@ -1,3 +1,4 @@
+import * as API from './api.js'
 const playerContainer = document.getElementById('all-players-container')
 const newPlayerFormContainer = document.getElementById('new-player-form')
 
@@ -11,28 +12,28 @@ const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`
  * It fetches all players from the API and returns them
  * @returns An array of objects.
  */
-const fetchAllPlayers = async () => {
-  try {
-    const response = await fetch(`${APIURL}players`)
-    const result = await response.json()
-    console.log(result)
-    return result
-  } catch (err) {
-    console.error('Uh oh, trouble fetching players!', err)
-  }
-}
+// const fetchAllPlayers = async () => {
+//   try {
+//     const response = await fetch(`${APIURL}players`)
+//     const result = await response.json()
+//     console.log(result)
+//     return result
+//   } catch (err) {
+//     console.error('Uh oh, trouble fetching players!', err)
+//   }
+// }
 
-const fetchSinglePlayer = async playerId => {
-  try {
-    const response = await fetch(`${APIURL}players/${playerId}`)
-    const result = await response.json()
-    console.log(result)
-    renderSinglePlayer(result)
-    return result
-  } catch (err) {
-    console.error(`Oh no, trouble fetching player #${playerId}!`, err)
-  }
-}
+// const fetchSinglePlayer = async playerId => {
+//   try {
+//     const response = await fetch(`${APIURL}players/${playerId}`)
+//     const result = await response.json()
+//     console.log(result)
+//     renderSinglePlayer(result)
+//     return result
+//   } catch (err) {
+//     console.error(`Oh no, trouble fetching player #${playerId}!`, err)
+//   }
+// }
 
 const renderSinglePlayer = async selectedPlayer => {
   console.log('from the render single player', selectedPlayer)
@@ -133,7 +134,8 @@ const renderAllPlayers = async playerList => {
       const detailBtn = playerDiv.querySelector('.details-button')
       detailBtn.addEventListener('click', async e => {
         const selectedDog = e.target.dataset.id
-        fetchSinglePlayer(selectedDog)
+        const fetchDog = await API.fetchSinglePlayer(selectedDog)
+        renderSinglePlayer(fetchDog)
       })
       const deleteBtn = playerDiv.querySelector('.delete-button')
       deleteBtn.addEventListener('click', async e => {
@@ -188,7 +190,7 @@ const renderNewPlayerForm = () => {
 }
 
 const init = async () => {
-  const players = await fetchAllPlayers()
+  const players = await API.fetchAllPlayers()
   //   console.log(players)
   renderAllPlayers(players)
 
