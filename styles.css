@@ -23,7 +23,7 @@ h1 {
   font-size: 40px;
   text-align: center;
   margin-bottom: 20px;
-  text-shadow: 5px 5px 10px white;
+  text-shadow: 2px 2px 4px white;
 }
 h2 {
   font-size: 20px;
@@ -44,11 +44,11 @@ button:hover {
 }
 
 form {
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 
   text-align: center;
   padding: 30px;
-  background-image: url('https://www.shutterstock.com/image-vector/american-football-field-vector-illustration-260nw-739740745.jpg');
+  background-image: url('https://i.pinimg.com/originals/7a/51/55/7a51556057fe321c0130b6cd33e70c5d.jpg');
   background-size: cover;
 }
 input:hover {
