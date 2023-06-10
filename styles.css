@@ -10,9 +10,6 @@ img {
   border-radius: 10%;
 }
 
-.card {
-}
-
 #all-players-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
